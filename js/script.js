@@ -13,7 +13,7 @@ if (!confirmTime) {
 
 // Create variable for save data
 var currentSaveData = [];
-for (i = 0; i < 24; i++) {
+for (var i = 0; i < 24; i++) {
     currentSaveData.push('');
 }
 
@@ -26,4 +26,27 @@ if (storageData) {
 }
 
 // Creating page elements
+for (var i = startTime; i < endTime; i++) {
+    var row = $("<div>")
+        .addClass("row time-block")
+        .attr("id", i);
 
+    var currentTime;
+
+    var hour = $('<div>').addClass('hour col-1').text(currentTime);
+
+    var input = $('textarea').addClass('description col-10 past').attr('id', i).val(currentSaveData[i]);
+
+    var saveButton = ('<button>').addClass("btn saveBtn col-1").text("Save").attr("data-id", i);
+
+    row.append(hour, input, saveButton);
+    $(".container").append(row);
+}
+
+function setCurrentTime() {
+
+}
+
+function saveInput(saveId) {
+
+}
