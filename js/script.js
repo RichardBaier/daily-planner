@@ -3,14 +3,6 @@ var startTime = 7;
 
 var endTime = 18;
 
-var confirmTime = window.confirm("Would you like to view standard business hours?");
-
-// Displays 24 hours if user does not want business hours
-if (!confirmTime) {
-    startTime = 0;
-    endTime = 24;
-}
-
 // Create variable for save data
 var currentSaveData = [];
 for (var i = 0; i < 24; i++) {
@@ -31,7 +23,10 @@ for (var i = startTime; i < endTime; i++) {
         .addClass("row time-block")
         .attr("id", i);
 
-    var currentTime;
+    var currentDate = dayjs().date();
+    var dayTitle = $('.currentDay').text(currentDate);
+
+    var currentTime = dayjs().hour();
 
     var hour = $('<div>').addClass('hour col-1').text(currentTime);
 
@@ -43,10 +38,20 @@ for (var i = startTime; i < endTime; i++) {
     $(".container").append(row);
 }
 
-function setCurrentTime() {
+function setCurrentTime(){
+    var currentHour = dayjs().hour();
+    
+    var currTextAreaEl = $("#" + currentHour).children("textarea");
+    currTextAreaEl.removeClass("past").addClass("present");
 
+    for(var i = currentHour + 1; i < endTime; i++){
+        var row = $("#" + i);
+        row.children("textarea").removeClass("past").addClass("future");
+    }
 }
 
 function saveInput(saveId) {
 
 }
+
+setCurrentTime();
